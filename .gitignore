@@ -1,0 +1,12 @@
+/.idea/
+cardgame.iml
+/domain/domain.iml
+/business/business.iml
+/application/application.iml
+/domain/target/
+/application/target/
+/business/target/
+
+#MacOs
+*.DS_Store
+
