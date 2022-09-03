@@ -2,11 +2,9 @@ package com.sofka.domain;
 
 import co.com.sofka.domain.generic.AggregateEvent;
 import com.sofka.domain.entities.Jugador;
-import com.sofka.domain.values.Ronda;
+import com.sofka.domain.events.*;
+import com.sofka.domain.values.*;
 import com.sofka.domain.entities.Tablero;
-import com.sofka.domain.values.JuegoId;
-import com.sofka.domain.values.JugadorId;
-import com.sofka.domain.values.TableroId;
 
 import java.util.Map;
 import java.util.Set;
@@ -69,8 +67,8 @@ public class Juego extends AggregateEvent<JuegoId> {
         appendChange(new CartaRetiradaDeTablero(tableroId, jugadorId, carta)).apply();
     }
 
-    public void asignarCartasAGanador(JugadorId ganadorId, Integer puntos, Set<Carta> cartasApuesta){
-        appendChange(new CartasAsignadasAGanador(ganadorId, puntos, cartasApuesta)).apply();
+    public void asignarCartasAGanador(JugadorId ganadorId, Integer puntos, Set<Carta> cartasApostadas){
+        appendChange(new CartasAsignadasAGanador(ganadorId, puntos, cartasApostadas)).apply();
     }
 
     public void finalizarJuego(JugadorId jugadorId, String alias){
