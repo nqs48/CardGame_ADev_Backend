@@ -15,6 +15,8 @@
     </modules>
 
     <properties>
+        <springboot.version>2.5.4</springboot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>

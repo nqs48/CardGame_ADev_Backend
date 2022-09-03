@@ -2,7 +2,7 @@ package com.sofka.cardgame.commands;
 
 import co.com.sofka.domain.generic.Command;
 
-public class PonerCartaEnTablero extends Command {
+public class PonerCartaEnTableroCommand extends Command {
 
     private String juegoId;
 
