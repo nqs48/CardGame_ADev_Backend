@@ -16,10 +16,25 @@ public class Juego extends AggregateEvent<JuegoId> {
     protected Ronda ronda;
     protected Jugador ganador;
 
+    public Juego(JuegoId juegoId) {
+        super(juegoId);
+    }
 
-public Juego(JuegoId juegoId){
-    super(juegoId);
-}
+    public Ronda ronda() {
+        return this.ronda;
+    }
+
+    public Jugador ganador() {
+        return this.ganador;
+    }
+
+    public Tablero tablero() {
+        return this.tablero;
+    }
+
+
+
+
 
 
 

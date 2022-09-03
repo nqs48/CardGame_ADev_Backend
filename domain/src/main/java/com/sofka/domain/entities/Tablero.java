@@ -6,4 +6,6 @@ import com.sofka.domain.values.TableroId;
 public class Tablero extends Entity<TableroId> {
 
 
+
+
 }
