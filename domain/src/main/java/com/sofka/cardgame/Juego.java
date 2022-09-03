@@ -69,7 +69,7 @@ public class Juego extends AggregateEvent<JuegoId> {
         appendChange(new RondaIniciada()).apply();
     }
 
-    public void terminarRonda(TableroId tableroId, Set<JugadorId> jugadorIds){
+    public void finalizarRonda(TableroId tableroId, Set<JugadorId> jugadorIds){
         appendChange(new RondaTerminada(tableroId,jugadorIds)).apply();
     }
 
