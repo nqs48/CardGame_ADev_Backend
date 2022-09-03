@@ -7,19 +7,33 @@ import java.util.Set;
 public class Ronda implements ValueObject<Ronda.Props> {
 
     private final Set<JugadorId> jugadores;
-    private final Integer numero;
+    private final Integer numeroRonda;
     private final Boolean estaIniciada;
 
-    public Ronda(Set<JugadorId> jugadores, Integer numero) {
+    public Ronda(Set<JugadorId> jugadores, Integer numeroRonda) {
         this.jugadores = jugadores;
-        this.numero = numero;
+        this.numeroRonda = numeroRonda;
         this.estaIniciada = false;
     }
 
-    public Ronda(Set<JugadorId> jugadores, Integer numero, Boolean estaIniciada) {
+    public Ronda(Set<JugadorId> jugadores, Integer numeroRonda, Boolean estaIniciada) {
         this.jugadores = jugadores;
-        this.numero = numero;
+        this.numeroRonda = numeroRonda;
         this.estaIniciada = estaIniciada;
+    }
+
+    //Comportamientos de la ronda
+    public Ronda iniciarRonda(){
+        return new Ronda(this.jugadores, this.numeroRonda, true);
+    }
+
+    public Ronda terminarRonda(){
+        return new Ronda(this.jugadores, this.numeroRonda, false);
+    }
+
+    public Ronda incrementarRonda(Set<JugadorId> jugadores){
+        System.out.println("Se inicia nueva ronda");
+        return new Ronda(jugadores,this.numeroRonda + 1,  false);
     }
 
     @Override
@@ -29,7 +43,7 @@ public class Ronda implements ValueObject<Ronda.Props> {
             public Set<JugadorId> jugadores(){return jugadores;}
 
             @Override
-            public Integer numero(){return numero;}
+            public Integer numeroRonda(){return numeroRonda;}
 
             @Override
             public Boolean estaIniciada(){
@@ -41,7 +55,7 @@ public class Ronda implements ValueObject<Ronda.Props> {
     public interface Props {
         Set<JugadorId> jugadores();
 
-        Integer numero();
+        Integer numeroRonda();
 
         Boolean estaIniciada();
     }

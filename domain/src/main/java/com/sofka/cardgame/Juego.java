@@ -43,7 +43,6 @@ public class Juego extends AggregateEvent<JuegoId> {
     }
 
     //Obtener Atributos del Juego
-
     public Ronda ronda() {
         return this.ronda;
     }
@@ -58,7 +57,6 @@ public class Juego extends AggregateEvent<JuegoId> {
 
 
     //Comportamientos del Juego
-
     public void crearTablero(){
         var id = new TableroId();
         appendChange(new TableroCreado(id, jugadores.keySet())).apply();
