@@ -8,4 +8,6 @@ public class Tablero extends Entity<TableroId> {
 
 
 
+
+
 }

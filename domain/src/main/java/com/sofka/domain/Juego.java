@@ -2,7 +2,7 @@ package com.sofka.domain;
 
 import co.com.sofka.domain.generic.AggregateEvent;
 import com.sofka.domain.entities.Jugador;
-import com.sofka.domain.entities.Ronda;
+import com.sofka.domain.values.Ronda;
 import com.sofka.domain.entities.Tablero;
 import com.sofka.domain.values.JuegoId;
 import com.sofka.domain.values.JugadorId;

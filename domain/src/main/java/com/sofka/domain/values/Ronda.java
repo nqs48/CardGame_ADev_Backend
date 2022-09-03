@@ -1,8 +1,6 @@
-package com.sofka.domain.entities;
+package com.sofka.domain.values;
 
-import co.com.sofka.domain.generic.Entity;
 import co.com.sofka.domain.generic.ValueObject;
-import com.sofka.domain.values.JugadorId;
 
 import java.util.Set;
 

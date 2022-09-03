@@ -2,7 +2,9 @@ package com.sofka.domain.values;
 
 import co.com.sofka.domain.generic.ValueObject;
 
-public class Carta implements ValueObject<Carta.Props> {
+import java.util.Objects;
+
+public class Carta implements ValueObject<Carta.Props>, Comparable<Carta> {
 
     private final CartaMaestraId cartaId;
     private final Integer poder;
@@ -11,14 +13,30 @@ public class Carta implements ValueObject<Carta.Props> {
 
     private final Boolean estaHabilitada;
 
-
-
     public Carta(CartaMaestraId cartaId, Integer poder, Boolean estaOculta, Boolean estaHabilitada) {
         this.cartaId = cartaId;
         this.poder = poder;
         this.estaOculta = estaOculta;
         this.estaHabilitada = estaHabilitada;
 
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Carta carta = (Carta) object;
+        return Objects.equals(cartaId, carta.cartaId) && Objects.equals(estaOculta, carta.estaOculta) && Objects.equals(estaHabilitada, carta.estaHabilitada) && Objects.equals(poder, carta.poder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartaId, estaOculta, estaHabilitada, poder);
+    }
+
+    @Override
+    public int compareTo(Carta carta) {
+        return  this.poder - carta.poder;
     }
 
 
