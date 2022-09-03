@@ -25,5 +25,42 @@ public class Tablero extends Entity<TableroId> {
         jugadoresId.forEach(jugadorId -> partida.put(jugadorId, new HashSet<>()));
     }
 
+    public Integer tiempo() {
+        return this.tiempo;
+    }
+
+    //Comportamientos
+    public void ajustarTiempo(Integer tiempo){
+        this.tiempo = tiempo;
+    }
+
+    public void adicionarPartida(JugadorId jugadorId, Carta carta){
+        partida.getOrDefault(jugadorId, new HashSet<>()).add(carta);
+    }
+
+    public void retirarCarta(JugadorId jugadorId, Carta carta){
+        partida.getOrDefault(jugadorId, new HashSet<>()).remove(carta);
+    }
+
+    public void habilitarApuesta(){
+        this.estaHabilitado = true;
+    }
+
+    public void inhabilitarApuesta(){
+        this.estaHabilitado = false;
+    }
+
+    public void reiniciarPartida(){
+        partida.clear();
+    }
+
+    public Boolean estaHabilitado() {
+        return this.estaHabilitado;
+    }
+
+    public Map<JugadorId, Set<Carta>> partida() {
+        return this.partida;
+    }
+
 
 }
