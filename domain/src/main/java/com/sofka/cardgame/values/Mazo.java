@@ -2,6 +2,7 @@ package com.sofka.cardgame.values;
 
 import co.com.sofka.domain.generic.ValueObject;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Mazo implements ValueObject<Mazo.Props> {
@@ -32,5 +33,20 @@ public class Mazo implements ValueObject<Mazo.Props> {
     public interface Props {
         Set<Carta> cartas();
         Integer cantidad();
+    }
+
+   //Comportamientos de mazo
+    public Mazo nuevaCarta(Carta carta) {
+        var cartas = new HashSet<>(this.cartas);
+        cartas.add(carta);
+        return new Mazo(cartas);
+    }
+
+    public Mazo retirarCarta(Carta cartaRetirada) {
+        var cartaId =  cartaRetirada.value().cartaId().value();
+        this.cartas.removeIf(
+                carta ->cartaId.equals(carta.value().cartaId().value())
+        );
+        return new Mazo(this.cartas);
     }
 }
