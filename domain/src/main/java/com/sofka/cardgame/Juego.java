@@ -1,6 +1,7 @@
 package com.sofka.cardgame;
 
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import com.sofka.cardgame.entities.Jugador;
 import com.sofka.cardgame.events.*;
 import com.sofka.cardgame.values.*;
@@ -8,6 +9,7 @@ import com.sofka.cardgame.entities.Tablero;
 import com.sofka.cardgame.events.JuegoCreado;
 import com.sofka.cardgame.events.JugadorAgregado;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,6 +28,18 @@ public class Juego extends AggregateEvent<JuegoId> {
         jugadorFactory.getJugadores().forEach(jugador -> {
             appendChange(new JugadorAgregado(jugador.identity(), jugador.alias(), jugador.mazo())).apply();
         });
+        subscribe(new JuegoEventChange(this));
+    }
+
+    private Juego(JuegoId id){
+        super(id);
+        subscribe(new JuegoEventChange(this));
+    }
+
+    public static Juego from(JuegoId juegoId, List<DomainEvent> events){
+        var juego = new Juego(juegoId);
+        events.forEach(juego::applyEvent);
+        return juego;
     }
 
     //Obtener Atributos del Juego
