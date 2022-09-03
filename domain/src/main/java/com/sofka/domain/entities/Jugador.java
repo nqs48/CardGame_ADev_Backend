@@ -5,4 +5,5 @@ import com.sofka.domain.values.JugadorId;
 
 public class Jugador extends Entity<JugadorId> {
 
+
 }
