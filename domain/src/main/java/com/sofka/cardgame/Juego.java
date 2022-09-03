@@ -19,7 +19,6 @@ public class Juego extends AggregateEvent<JuegoId> {
     protected Map<JugadorId, Jugador> jugadores;
     protected Ronda ronda;
     protected Jugador ganador;
-
     protected JugadorId jugadorPrincipal;
 
     public Juego(JuegoId juegoId, JugadorId uid, JugadorFactory jugadorFactory) {
