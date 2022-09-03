@@ -5,6 +5,8 @@ import com.sofka.cardgame.entities.Jugador;
 import com.sofka.cardgame.events.*;
 import com.sofka.cardgame.values.*;
 import com.sofka.cardgame.entities.Tablero;
+import com.sofka.cardgame.events.JuegoCreado;
+import com.sofka.cardgame.events.JugadorAgregado;
 
 import java.util.Map;
 import java.util.Set;
