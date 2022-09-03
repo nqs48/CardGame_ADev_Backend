@@ -1,8 +1,8 @@
-package com.sofka.domain.entities;
+package com.sofka.cardgame.entities;
 
 import co.com.sofka.domain.generic.Entity;
-import com.sofka.domain.values.JugadorId;
-import com.sofka.domain.values.Mazo;
+import com.sofka.cardgame.values.JugadorId;
+import com.sofka.cardgame.values.Mazo;
 
 import java.util.Objects;
 

@@ -1,9 +1,9 @@
-package com.sofka.domain.entities;
+package com.sofka.cardgame.entities;
 
 import co.com.sofka.domain.generic.Entity;
-import com.sofka.domain.values.Carta;
-import com.sofka.domain.values.JugadorId;
-import com.sofka.domain.values.TableroId;
+import com.sofka.cardgame.values.Carta;
+import com.sofka.cardgame.values.JugadorId;
+import com.sofka.cardgame.values.TableroId;
 
 import java.util.HashMap;
 import java.util.HashSet;

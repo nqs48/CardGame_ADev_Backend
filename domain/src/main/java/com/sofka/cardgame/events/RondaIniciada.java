@@ -1,10 +1,10 @@
-package com.sofka.domain.events;
+package com.sofka.cardgame.events;
 
 import co.com.sofka.domain.generic.DomainEvent;
 
 public class RondaIniciada extends DomainEvent {
     public RondaIniciada() {
-        super("");
+        super("cardgame.rondainiciada");
     }
 }
 

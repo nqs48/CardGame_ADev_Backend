@@ -1,10 +1,10 @@
-package com.sofka.domain;
+package com.sofka.cardgame;
 
 import co.com.sofka.domain.generic.AggregateEvent;
-import com.sofka.domain.entities.Jugador;
-import com.sofka.domain.events.*;
-import com.sofka.domain.values.*;
-import com.sofka.domain.entities.Tablero;
+import com.sofka.cardgame.entities.Jugador;
+import com.sofka.cardgame.events.*;
+import com.sofka.cardgame.values.*;
+import com.sofka.cardgame.entities.Tablero;
 
 import java.util.Map;
 import java.util.Set;
