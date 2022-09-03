@@ -16,8 +16,14 @@ public class Juego extends AggregateEvent<JuegoId> {
     protected Ronda ronda;
     protected Jugador ganador;
 
-    public Juego(JuegoId juegoId) {
+    protected JugadorId jugadorPrincipal;
+
+    public Juego(JuegoId juegoId, JugadorId uid, JugadorFactory jugadorFactory) {
         super(juegoId);
+        appendChange(new JuegoCreado(uid)).apply();
+        jugadorFactory.getJugadores().forEach(jugador -> {
+            appendChange(new JugadorAgregado(jugador.identity(), jugador.alias(), jugador.mazo())).apply();
+        });
     }
 
     //Obtener Atributos del Juego

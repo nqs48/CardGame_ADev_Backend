@@ -12,9 +12,13 @@ public class Jugador extends Entity<JugadorId> {
     private Mazo mazo;
 
 
-    public Jugador(JugadorId entityId, String email) {
+    public Jugador(JugadorId entityId, String email, Mazo mazo) {
         super(entityId);
         this.email = Objects.requireNonNull(email);
+        this.mazo = Objects.requireNonNull(mazo);
+        if(mazo.value().cantidad() <= 0){
+            throw new IllegalArgumentException("El mazo debe tener cartas");
+        }
     }
 
 
