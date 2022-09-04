@@ -54,6 +54,10 @@ public class Juego extends AggregateEvent<JuegoId> {
         return this.tablero;
     }
 
+    public Map<JugadorId, Jugador> jugadores() {
+        return jugadores;
+    }
+
 
     //Comportamientos del Juego
     public void crearTablero(){
