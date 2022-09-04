@@ -11,7 +11,7 @@
     <modules>
         <module>domain</module>
         <module>business</module>
-        <module>application</module>
+        <module>app-service</module>
     </modules>
 
     <properties>
