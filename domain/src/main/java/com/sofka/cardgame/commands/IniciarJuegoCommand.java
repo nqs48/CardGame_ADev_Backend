@@ -3,7 +3,6 @@ package com.sofka.cardgame.commands;
 import co.com.sofka.domain.generic.Command;
 
 public class IniciarJuegoCommand extends Command {
-
     private String juegoId;
 
     public String getJuegoId() {

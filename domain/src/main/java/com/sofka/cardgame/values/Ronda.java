@@ -14,6 +14,12 @@ public class Ronda implements ValueObject<Ronda.Props> {
         this.jugadores = jugadores;
         this.numeroRonda = numeroRonda;
         this.estaIniciada = false;
+        if(numeroRonda <= 0){
+            throw new IllegalArgumentException("El numero de la ronda debe no puede ser cero o negativo");
+        }
+        if(jugadores.size() <= 1){
+            throw new IllegalArgumentException("La ronda se crear con minimo 2 jugadores");
+        }
     }
 
     public Ronda(Set<JugadorId> jugadores, Integer numeroRonda, Boolean estaIniciada) {

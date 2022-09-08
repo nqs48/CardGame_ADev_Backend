@@ -7,15 +7,11 @@ import com.sofka.cardgame.values.JugadorId;
 import java.util.Set;
 
 public class CartasAsignadasAGanador extends DomainEvent {
-
     private final JugadorId ganadorId;
-
     private final Integer puntos;
-
     private final Set<Carta> cartasApostadas;
     public CartasAsignadasAGanador(JugadorId ganadorId, Integer puntos, Set<Carta> cartasApostadas) {
         super("cardgame.cartasasignadasaganador");
-
         this.ganadorId= ganadorId;
         this.puntos= puntos;
         this.cartasApostadas= cartasApostadas;

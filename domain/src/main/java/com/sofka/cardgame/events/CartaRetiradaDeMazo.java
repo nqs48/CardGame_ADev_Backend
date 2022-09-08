@@ -5,10 +5,9 @@ import com.sofka.cardgame.values.Carta;
 import com.sofka.cardgame.values.JugadorId;
 
 public class CartaRetiradaDeMazo extends DomainEvent {
-
     private final JugadorId jugadorId;
-
     private final Carta carta;
+
     public CartaRetiradaDeMazo(JugadorId jugadorId, Carta carta) {
         super("cardgame.cartaretiradademazo");
         this.jugadorId= jugadorId;
@@ -18,7 +17,6 @@ public class CartaRetiradaDeMazo extends DomainEvent {
     public JugadorId getJugadorId() {
         return jugadorId;
     }
-
     public Carta getCarta() {
         return carta;
     }

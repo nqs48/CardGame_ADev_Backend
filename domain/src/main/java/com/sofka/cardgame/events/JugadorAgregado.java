@@ -9,6 +9,7 @@ public class JugadorAgregado extends DomainEvent {
     private final JugadorId identity;
     private final String alias;
     private final Mazo mazo;
+
     public JugadorAgregado(JugadorId identity, String alias, Mazo mazo) {
         super("cardgame.jugadoragregado");
         this.identity = identity;

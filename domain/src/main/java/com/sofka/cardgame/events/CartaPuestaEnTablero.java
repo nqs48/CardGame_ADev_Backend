@@ -6,11 +6,8 @@ import com.sofka.cardgame.values.JugadorId;
 import com.sofka.cardgame.values.TableroId;
 
 public class CartaPuestaEnTablero extends DomainEvent {
-
     private final TableroId tableroId;
-
     private final JugadorId jugadorId;
-
     private final Carta carta;
 
     public CartaPuestaEnTablero(TableroId tableroId, JugadorId jugadorId, Carta carta) {

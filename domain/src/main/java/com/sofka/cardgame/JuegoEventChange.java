@@ -20,10 +20,6 @@ public class JuegoEventChange extends EventChange {
             juego.jugadores.put(event.getIdentity(), new Jugador(event.getIdentity(), event.getAlias(), event.getMazo()));
         });
 
-        apply((TableroCreado event) -> {
-            juego.tablero= new Tablero(event.getTableroId(), event.getJugadoresId());
-        });
-
         apply((RondaCreada event) -> {
             if(Objects.isNull(juego.tablero)){
                 throw new IllegalArgumentException("Primero debes crear un tablero");
@@ -32,11 +28,18 @@ public class JuegoEventChange extends EventChange {
             juego.tablero.ajustarTiempo(event.getTiempo());
         });
 
+        apply((TableroCreado event) -> {
+            juego.tablero= new Tablero(event.getTableroId(), event.getJugadoresId());
+        });
+
         apply((TiempoActualizadoDeTablero event)->{
             juego.tablero.ajustarTiempo(event.getTiempo());
         });
 
         apply((CartaPuestaEnTablero event) -> {
+            if(Boolean.FALSE.equals(juego.tablero.estaHabilitado())){
+                throw new IllegalArgumentException("No se puedo apostar porque el tablero no esta habilitado");
+            }
             juego.tablero.adicionarPartida(event.getJugadorId(),event.getCarta());
         });
 
