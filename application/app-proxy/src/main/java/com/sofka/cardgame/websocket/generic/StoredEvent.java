@@ -1,4 +1,4 @@
-package com.sofka.appservices.generic;
+package com.sofka.cardgame.websocket.generic;
 
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -75,4 +75,3 @@ public class StoredEvent {
         String serialize(DomainEvent object);
     }
 }
-

@@ -1,12 +1,13 @@
-package com.sofka.appservices;
+package com.sofka.cardgame.websocket;
 
-import com.sofka.appservices.generic.StoredEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.google.gson.Gson;
+import com.sofka.cardgame.websocket.generic.StoredEvent;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GsonEventSerializer implements StoredEvent.EventSerializer {
+
     @Override
     public <T extends DomainEvent> T deserialize(String aSerialization, Class<?> aType) {
         return (T) new Gson().fromJson(aSerialization, aType);
@@ -17,3 +18,4 @@ public class GsonEventSerializer implements StoredEvent.EventSerializer {
         return new Gson().toJson(object);
     }
 }
+

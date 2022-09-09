@@ -1,13 +1,13 @@
-package com.sofka.appproxy;
+package com.sofka.cardgame.appservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppProxyApplication {
+public class AppServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppProxyApplication.class, args);
+        SpringApplication.run(AppServiceApplication.class, args);
     }
 
 }
