@@ -57,5 +57,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.22" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.9.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-rabbit:2.3.10" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-amqp:2.3.10" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.9" level="project" />
+    <orderEntry type="library" name="Maven: co.com.sofka:domain:1.5.0" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.4.12" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.3.9" level="project" />
+    <orderEntry type="module" module-name="business" />
+    <orderEntry type="module" module-name="domain" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.9" level="project" />
   </component>
 </module>

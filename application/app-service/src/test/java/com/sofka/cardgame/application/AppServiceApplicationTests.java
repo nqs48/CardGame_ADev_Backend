@@ -1,4 +1,4 @@
-package com.sofka.cardgame.appservice;
+package com.sofka.cardgame.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
