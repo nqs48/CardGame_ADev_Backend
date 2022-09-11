@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CrearRondaUseCase extends UseCaseForCommand<CrearRondaCommand> {
 
@@ -28,7 +29,13 @@ public class CrearRondaUseCase extends UseCaseForCommand<CrearRondaCommand> {
                 .collectList()
                 .flatMapIterable(events -> {
                     var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
-                    var ronda=new Ronda((Set<JugadorId>) juego.jugadores(), command.getTiempo());
+                    var jugadores = command.getJugadores().stream()
+                            .map(JugadorId::of).collect(Collectors.toSet());
+
+                    if (juego.ronda() == null) {
+                        juego.crearRonda(new Ronda(jugadores,1), command.getTiempo());
+                    }
+                    juego.ronda().incrementarRonda(jugadores);
                     return juego.getUncommittedChanges();
                 }));
     }

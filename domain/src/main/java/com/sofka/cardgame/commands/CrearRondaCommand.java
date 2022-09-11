@@ -9,7 +9,14 @@ public class CrearRondaCommand extends Command {
     private Integer tiempo;
     private Set<String> jugadores;
 
-//Getters y Setters
+    public CrearRondaCommand() {}
+
+    public CrearRondaCommand(String juegoId, Set<String> jugadores) {
+        this.juegoId = juegoId;
+        this.jugadores = jugadores;
+    }
+
+    //Getters y Setters
     public Set<String> getJugadores() {
     return jugadores;
 }

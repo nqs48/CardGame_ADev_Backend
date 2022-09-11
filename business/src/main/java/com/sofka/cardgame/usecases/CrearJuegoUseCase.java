@@ -19,6 +19,8 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
 
     private final ListaDeCartaService listaDeCartaService;
 
+    private final Integer limitCards = 5;
+
     public CrearJuegoUseCase(ListaDeCartaService listaDeCartaService) {
         this.listaDeCartaService = listaDeCartaService;
     }
@@ -45,7 +47,7 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
 
     private Mazo generarMazo(List<CartaMaestra> cartas) {
         Collections.shuffle(cartas);
-        var lista = cartas.stream().limit(5)
+        var lista = cartas.stream().limit(limitCards)
                 .map(carta -> new Carta(CartaMaestraId.of(carta.getId()), carta.getPoder(), false, true))
                 .collect(Collectors.toList());
         cartas.removeIf(cartaMaestra -> lista.stream().anyMatch(carta -> {
