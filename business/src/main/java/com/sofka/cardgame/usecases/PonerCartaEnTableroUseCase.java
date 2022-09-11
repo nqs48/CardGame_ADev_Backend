@@ -18,6 +18,8 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
     private final Logger log = Logger.getLogger(PonerCartaEnTableroUseCase.class.getCanonicalName());
     private final JuegoDomainEventRepository repository;
 
+    private final Integer cartLimitTurn=1;
+
     public PonerCartaEnTableroUseCase(JuegoDomainEventRepository repository) {
         this.repository = repository;
     }
@@ -37,8 +39,8 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
 
                     var cantidad = (long) juego.tablero().partida()
                             .get(jugadorId).size();
-                    if(cantidad >= 2) {
-                        throw new IllegalArgumentException("No puede poner mas de 2 cartas en el tablero");
+                    if(cantidad > cartLimitTurn) {
+                        throw new IllegalArgumentException("En tu turno solo puedes poner una carta en el tablero");
                     }
                     juego.ponerCartaEnTablero(tableroId, jugadorId, cartaSeleccionado);
                     return juego.getUncommittedChanges();

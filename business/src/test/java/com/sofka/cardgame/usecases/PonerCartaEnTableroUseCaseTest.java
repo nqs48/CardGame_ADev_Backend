@@ -33,30 +33,30 @@ class PonerCartaEnTableroUseCaseTest {
     void ponerCarta() {
         //arrange
         var command = new PonerCartaEnTableroCommand();
-        command.setCartaId("xxxxx");
-        command.setJuegoId("fffff");
-        command.setJugadorId("yyyyy");
-        when(repository.obtenerEventosPor("fffff")).thenReturn(history());
+        command.setCartaId("cartaMaestraId-001");
+        command.setJuegoId("juegoId-001");
+        command.setJugadorId("jugadorId-001");
+        when(repository.obtenerEventosPor("juegoId-001")).thenReturn(history());
 
         StepVerifier.create(useCase.apply(Mono.just(command)))//act
                 .expectNextMatches(domainEvent -> {
                     var event = (CartaPuestaEnTablero) domainEvent;
-                    Assertions.assertEquals("yyyyy", event.getJugadorId().value());
-                    return "xxxxx".equals(event.getCarta().value().cartaId().value());
+                    Assertions.assertEquals("jugadorId-001", event.getJugadorId().value());
+                    return "cartaMaestraId-001".equals(event.getCarta().value().cartaId().value());
                 })
                 .expectNextMatches(domainEvent -> {
                     var event = (CartaRetiradaDeMazo) domainEvent;
-                    Assertions.assertEquals("yyyyy", event.getJugadorId().value());
-                    return "xxxxx".equals(event.getCarta().value().cartaId().value());                    })
+                    Assertions.assertEquals("jugadorId-001", event.getJugadorId().value());
+                    return "cartaMaestraId-001".equals(event.getCarta().value().cartaId().value());                    })
                 .expectComplete()
                 .verify();
     }
 
     private Flux<DomainEvent> history() {
-        var jugadorId = JugadorId.of("yyyyy");
-        var jugador2Id = JugadorId.of("hhhhhh");
+        var jugadorId = JugadorId.of("jugadorId-001");
+        var jugador2Id = JugadorId.of("jugadorId-002");
         var cartas = Set.of(new Carta(
-                CartaMaestraId.of("xxxxx"),
+                CartaMaestraId.of("cartaMaestraId-001"),
                 20,
                 false, true
         ));
