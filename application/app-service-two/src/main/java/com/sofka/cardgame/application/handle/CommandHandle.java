@@ -27,9 +27,12 @@ public class CommandHandle {
 
         return route(
                 POST("/juego/crear").and(accept(MediaType.APPLICATION_JSON)),
-                request -> usecase.andThen(integrationHandle)
-                        .apply(request.bodyToMono(CrearJuegoCommand.class))
-                        .then(ServerResponse.ok().build())
+                request -> {
+                    System.out.println(request);
+                    return usecase.andThen(integrationHandle)
+                            .apply(request.bodyToMono(CrearJuegoCommand.class))
+                            .then(ServerResponse.ok().build());
+                }
 
         );
     }
