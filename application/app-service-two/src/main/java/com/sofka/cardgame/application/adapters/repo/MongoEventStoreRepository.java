@@ -1,14 +1,18 @@
 package com.sofka.cardgame.application.adapters.repo;
 
 import co.com.sofka.domain.generic.DomainEvent;
-import co.com.sofka.domain.generic.Query;
 import com.sofka.cardgame.application.generic.EventStoreRepository;
 import com.sofka.cardgame.application.generic.StoredEvent;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
 
+@Component
 public class MongoEventStoreRepository implements EventStoreRepository {
 
     private final ReactiveMongoTemplate template;

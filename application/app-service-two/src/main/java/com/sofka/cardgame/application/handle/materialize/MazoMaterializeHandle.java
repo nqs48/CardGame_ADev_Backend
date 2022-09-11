@@ -1,10 +1,14 @@
 package com.sofka.cardgame.application.handle.materialize;
 
 import co.com.sofka.domain.generic.DomainEvent;
-import co.com.sofka.domain.generic.Query;
+
+
 import com.sofka.cardgame.events.JugadorAgregado;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 
 @Configuration

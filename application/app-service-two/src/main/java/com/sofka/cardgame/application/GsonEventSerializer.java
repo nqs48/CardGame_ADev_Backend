@@ -3,7 +3,9 @@ package com.sofka.cardgame.application;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.google.gson.Gson;
 import com.sofka.cardgame.application.generic.StoredEvent;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GsonEventSerializer implements StoredEvent.EventSerializer {
 
     @Override

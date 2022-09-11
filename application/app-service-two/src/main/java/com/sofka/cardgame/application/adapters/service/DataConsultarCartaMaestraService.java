@@ -3,6 +3,7 @@ package com.sofka.cardgame.application.adapters.service;
 
 import com.sofka.cardgame.gateway.ListaDeCartaService;
 import com.sofka.cardgame.gateway.model.CartaMaestra;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 

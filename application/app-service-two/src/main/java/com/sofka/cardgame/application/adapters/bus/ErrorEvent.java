@@ -1,6 +1,7 @@
 package com.sofka.cardgame.application.adapters.bus;
 
-public class ErrorEvent {
+import co.com.sofka.domain.generic.DomainEvent;
+public class ErrorEvent extends DomainEvent {
 
     private final String classType;
     private final String message;
