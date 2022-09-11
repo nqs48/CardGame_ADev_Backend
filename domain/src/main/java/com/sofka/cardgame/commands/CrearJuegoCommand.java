@@ -2,6 +2,7 @@ package com.sofka.cardgame.commands;
 
 import co.com.sofka.domain.generic.Command;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CrearJuegoCommand extends Command {
@@ -9,6 +10,12 @@ public class CrearJuegoCommand extends Command {
     private String juegoId;
     private Map<String, String> jugadores;
     private String jugadorPrincipalId;
+
+    public CrearJuegoCommand(String juegoId, HashMap<String, String> jugadores, String JugadorPrincipalId) {
+        this.juegoId = juegoId;
+        this.jugadores = jugadores;
+        this.jugadorPrincipalId = JugadorPrincipalId;
+    }
 
 
     public void setJugadores(Map<String, String> jugadores) {
