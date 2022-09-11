@@ -38,7 +38,7 @@ class CrearRondaUseCaseTest {
 
         //arrange
         var juegoId = JuegoId.of("JuegoId-001");
-        var jugadores = Set.of("jugadorid-001", "jugadorId-002");
+        var jugadores = Set.of("jugadorId-001", "jugadorId-002");
         var comando = new CrearRondaCommand(juegoId.value(), jugadores);
 
         when(repository.obtenerEventosPor(juegoId.value())).thenReturn(eventos());
@@ -54,8 +54,8 @@ class CrearRondaUseCaseTest {
     }
 
     private Flux<DomainEvent> eventos() {
-        var evento = new JuegoCreado(JugadorId.of("jugadorid-001"));
-        var jugadores = Set.of(JugadorId.of("jugadorid-001"), JugadorId.of("jugadorid-002"));
+        var evento = new JuegoCreado(JugadorId.of("jugadorId-001"));
+        var jugadores = Set.of(JugadorId.of("jugadorId-001"), JugadorId.of("jugadorId-002"));
         var evento2 = new TableroCreado(TableroId.of("tableroId-001"),jugadores);
         return Flux.just(
                 evento,
