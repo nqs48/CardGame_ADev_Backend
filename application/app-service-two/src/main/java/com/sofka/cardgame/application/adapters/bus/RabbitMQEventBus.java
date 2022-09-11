@@ -6,7 +6,6 @@ import com.sofka.cardgame.application.ApplicationConfig;
 import com.sofka.cardgame.application.GsonEventSerializer;
 import com.sofka.cardgame.application.generic.EventBus;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Service;
 
 public class RabbitMQEventBus implements EventBus {
 

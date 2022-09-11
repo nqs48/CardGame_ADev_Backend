@@ -1,9 +1,20 @@
 package com.sofka.cardgame.application.handle;
 
+import com.sofka.cardgame.application.handle.model.JuegoListViewModel;
+import com.sofka.cardgame.application.handle.model.MazoViewModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 
 
 @Configuration

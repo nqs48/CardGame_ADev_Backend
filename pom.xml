@@ -8,10 +8,11 @@
     <artifactId>cardgame</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>domain</module>
         <module>business</module>
-        <module>application/app-service</module>
+        <module>application/app-service-two</module>
         <module>application/app-proxy</module>
     </modules>
 
