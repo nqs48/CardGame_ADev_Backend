@@ -36,4 +36,19 @@ public class CommandHandle {
 
         );
     }
+
+//    @Bean
+//    public RouterFunction<ServerResponse> crear(CrearJuegoUseCase usecase) {
+//
+//        return route(
+//                POST("/juego/crear").and(accept(MediaType.APPLICATION_JSON)),
+//                request -> {
+//                    System.out.println(request);
+//                    return usecase.andThen(integrationHandle)
+//                            .apply(request.bodyToMono(CrearJuegoCommand.class))
+//                            .then(ServerResponse.ok().build());
+//                }
+//
+//        );
+//    }
 }

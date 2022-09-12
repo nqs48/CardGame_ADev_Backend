@@ -38,6 +38,17 @@ public class QueryHandle {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> listarJuegos() {
+        return RouterFunctions.route(
+                GET("/juego/listar/"),
+                request -> template.findAll(JuegoListViewModel.class, "gameview")
+                        .collectList()
+                        .flatMap(list -> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(BodyInserters.fromPublisher(Flux.fromIterable(list), JuegoListViewModel.class)))
+        );
+    }
 
     @Bean
     public RouterFunction<ServerResponse> mazoPorJugador() {
@@ -56,4 +67,12 @@ public class QueryHandle {
                 Criteria.where("uid").is(uid)
         );
     }
+
+    private Query filterByFinalizado(boolean finalizado) {
+        return new Query(
+                Criteria.where("finalizado").is(finalizado)
+        );
+    }
+
+
 }
