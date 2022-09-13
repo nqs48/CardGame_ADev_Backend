@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTableroCommand>{
 
-    private final Logger log = Logger.getLogger(PonerCartaEnTableroUseCase.class.getCanonicalName());
     private final JuegoDomainEventRepository repository;
 
     private final Integer cartLimitTurn=1;

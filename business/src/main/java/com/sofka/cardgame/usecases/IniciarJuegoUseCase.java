@@ -5,6 +5,7 @@ import com.sofka.cardgame.Juego;
 import com.sofka.cardgame.commands.IniciarJuegoCommand;
 import com.sofka.cardgame.gateway.JuegoDomainEventRepository;
 import com.sofka.cardgame.values.JuegoId;
+import com.sofka.cardgame.values.Ronda;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,10 +14,11 @@ public class IniciarJuegoUseCase extends UseCaseForCommand<IniciarJuegoCommand> 
 
     private final JuegoDomainEventRepository repository;
 
-    public IniciarJuegoUseCase(JuegoDomainEventRepository repository) {
+    public final Integer TIEMPO= 80;
+
+    public IniciarJuegoUseCase(JuegoDomainEventRepository repository){
         this.repository = repository;
     }
-
 
     @Override
     public Flux<DomainEvent> apply(Mono<IniciarJuegoCommand> iniciarJuegoCommand) {
@@ -26,6 +28,7 @@ public class IniciarJuegoUseCase extends UseCaseForCommand<IniciarJuegoCommand> 
                 .flatMapIterable(events -> {
                     var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
                     juego.crearTablero();
+                    juego.crearRonda(new Ronda(juego.jugadores().keySet(),1),  TIEMPO);
                     return juego.getUncommittedChanges();
                 }));
     }
