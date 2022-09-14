@@ -43,7 +43,7 @@ public class QueryHandle {
     @Bean
     public RouterFunction<ServerResponse> listarJuegos() {
         return RouterFunctions.route(
-                GET("/juego/listar/"),
+                GET("/juego/listar"),
                 request -> template.findAll(JuegoListViewModel.class, "gameview")
                         .collectList()
                         .flatMap(list -> ServerResponse.ok()
@@ -78,7 +78,7 @@ public class QueryHandle {
 
     private Query filterByUId(String uid) {
         return new Query(
-                Criteria.where("uid").is(uid)
+                Criteria.where("jugadores."+uid+".jugadorId").is(uid)
         );
     }
 
