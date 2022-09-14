@@ -14,12 +14,10 @@ public class RabbitMQEventBus implements EventBus {
 
     private final RabbitTemplate rabbitTemplate;
     private final GsonEventSerializer serializer;
-    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public RabbitMQEventBus(RabbitTemplate rabbitTemplate,  GsonEventSerializer serializer, ApplicationEventPublisher applicationEventPublisher) {
+    public RabbitMQEventBus(RabbitTemplate rabbitTemplate,  GsonEventSerializer serializer) {
         this.serializer = serializer;
         this.rabbitTemplate = rabbitTemplate;
-        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override

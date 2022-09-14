@@ -6,9 +6,12 @@ import java.util.Set;
 
 public class TableroViewModel {
 
-    private  Tablero tablero;
-    private Integer tiempo;
     private Ronda ronda;
+    private Integer cantidadJugadores;
+    private Set<String> jugadoresIniciales;
+    private String jugadorPrincipalId;
+    private Map<String, List<MazoViewModel.Carta>> cartas;
+
 
     public Ronda getRonda() {
         return ronda;
@@ -18,90 +21,77 @@ public class TableroViewModel {
         this.ronda = ronda;
     }
 
-    public void setTiempo(Integer tiempo) {
-        this.tiempo = tiempo;
+    public Integer getCantidadJugadores() {
+        return cantidadJugadores;
     }
 
-    public Integer getTiempo() {
-        return tiempo;
+    public void setCantidadJugadores(Integer cantidadJugadores) {
+        this.cantidadJugadores = cantidadJugadores;
     }
 
-    public Tablero getTablero() {
-        return tablero;
+    public Set<String> getJugadoresIniciales() {
+        return jugadoresIniciales;
     }
 
-    public void setTablero(Tablero tablero) {
-        this.tablero = tablero;
+    public void setJugadoresIniciales(Set<String> jugadoresIniciales) {
+        this.jugadoresIniciales = jugadoresIniciales;
     }
 
-    public static class Tablero{
-        private String id;
-        private Set<String> jugadores;
-        private Boolean habilitado;
-        private Map<String, List<MazoViewModel.Carta>> cartas;
-
-
-        public void setHabilitado(Boolean habilitado) {
-            this.habilitado = habilitado;
-        }
-
-        public Boolean getHabilitado() {
-            return habilitado;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setJugadores(Set<String> jugadores) {
-            this.jugadores = jugadores;
-        }
-
-        public Set<String> getJugadores() {
-            return jugadores;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-
-        public Map<String, List<MazoViewModel.Carta>> getCartas() {
-            return cartas;
-        }
-
-        public void setCartas(Map<String, List<MazoViewModel.Carta>> cartas) {
-            this.cartas = cartas;
-        }
+    public String getJugadorPrincipalId() {
+        return jugadorPrincipalId;
     }
 
-    public static class Ronda{
+    public void setJugadorPrincipalId(String jugadorPrincipalId) {
+        this.jugadorPrincipalId = jugadorPrincipalId;
+    }
+
+    public Map<String, List<MazoViewModel.Carta>> getCartas() {
+        return cartas;
+    }
+
+    public void setCartas(Map<String, List<MazoViewModel.Carta>> cartas) {
+        this.cartas = cartas;
+    }
+
+
+    public static class Ronda {
+        private Integer tiempo;
         private Set<String> jugadores;
         private String numero;
         private Boolean estaIniciada;
 
-        public void setEstaIniciada(Boolean estaIniciada) {
-            this.estaIniciada = estaIniciada;
+
+        public Integer getTiempo() {
+            return tiempo;
         }
 
-        public Boolean getEstaIniciada() {
-            return estaIniciada;
+        public void setTiempo(Integer tiempo) {
+            this.tiempo = tiempo;
         }
 
         public Set<String> getJugadores() {
             return jugadores;
+        }
+
+        public void setJugadores(Set<String> jugadores) {
+            this.jugadores = jugadores;
         }
 
         public String getNumero() {
             return numero;
         }
 
-        public void setJugadores(Set<String> jugadores) {
-            this.jugadores = jugadores;
-        }
-
         public void setNumero(String numero) {
             this.numero = numero;
         }
+
+        public Boolean getEstaIniciada() {
+            return estaIniciada;
+        }
+
+        public void setEstaIniciada(Boolean estaIniciada) {
+            this.estaIniciada = estaIniciada;
+        }
     }
+
 }

@@ -29,6 +29,7 @@ public class RabbitMQEventConsumer {
             exchange = @Exchange(value = ApplicationConfig.EXCHANGE, type = "topic"),
             key = "cardgame.#"
     ))
+
     public void receivedMessage(Message<String> message) {
         var notification = Notification.from(message.getPayload());
         try {

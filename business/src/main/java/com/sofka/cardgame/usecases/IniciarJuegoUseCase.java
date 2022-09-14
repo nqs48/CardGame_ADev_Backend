@@ -27,8 +27,12 @@ public class IniciarJuegoUseCase extends UseCaseForCommand<IniciarJuegoCommand> 
                 .collectList()
                 .flatMapIterable(events -> {
                     var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
+
                     juego.crearTablero();
-                    juego.crearRonda(new Ronda(juego.jugadores().keySet(),1),  TIEMPO);
+                    var playersId=juego.jugadores().keySet();
+                    var newRonda = new Ronda(playersId, 1);
+                    juego.crearRonda(newRonda,TIEMPO);
+
                     return juego.getUncommittedChanges();
                 }));
     }

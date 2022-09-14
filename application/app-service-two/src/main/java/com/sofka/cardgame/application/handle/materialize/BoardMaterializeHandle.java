@@ -1,9 +1,19 @@
 package com.sofka.cardgame.application.handle.materialize;
 
 import co.com.sofka.domain.generic.DomainEvent;
+import co.com.sofka.domain.generic.Identity;
+import com.sofka.cardgame.events.RondaCreada;
+import com.sofka.cardgame.events.TableroCreado;
+import org.bson.Document;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class BoardMaterializeHandle {
 
@@ -18,7 +28,62 @@ public class BoardMaterializeHandle {
     }
 
 
+    @EventListener
+    public void handleTableroCreado(TableroCreado event) {
+        var boardView = new Update();
+        var update = new Update();
+
+
+        boardView.set("jugadoresIniciales", event.getJugadoresId().stream()
+                .map(Identity::value)
+                .collect(Collectors.toList()));
+        boardView.set("fecha", Instant.now());
+        boardView.set("ronda", new HashMap<>());
+        boardView.set("cantidadJugadores", event.getJugadoresId().size());
+        update.set("iniciado", true);
+        update.set("tablero", boardView);
+        template.updateFirst(getFilterByAggregateId(event), update, COLLECTION_GAME)
+                .block();
+        template.updateFirst(getBoardViewByAggregateId(event),boardView, COLLECTION_BOARD).block();
+    }
+
+
+    @EventListener
+    public void handleRondaCreada(RondaCreada event) {
+        var gameView = new Update();
+        var boardView = new Update();
+        var ronda = event.getRonda().value();
+        var document = new Document();
+        var jugadores = ronda.jugadores().stream()
+                .map(Identity::value)
+                .collect(Collectors.toList());
+
+        document.put("jugadores", jugadores);
+        document.put("numero", ronda.numeroRonda());
+        document.put("iniciada", false);
+        document.put("estaIniciada", event.getRonda().value().estaIniciada());
+        document.put("tiempo",event.getTiempo());
+
+        gameView.set("fecha", Instant.now());
+        gameView.set("tiempo", event.getTiempo());
+        gameView.set("ronda", document);
+        gameView.set("tablero.ronda", document);
+        boardView.set("ronda", document);
+
+        template.updateFirst(getFilterByAggregateId(event), gameView, COLLECTION_GAME).block();
+        template.updateFirst(getBoardViewByAggregateId(event), boardView, COLLECTION_BOARD)
+                .block();
+
+
+    }
+
     private Query getFilterByAggregateId(DomainEvent event) {
+        return new Query(
+                Criteria.where("_id").is(event.aggregateRootId())
+        );
+    }
+
+    private Query getBoardViewByAggregateId(DomainEvent event) {
         return new Query(
                 Criteria.where("_id").is(event.aggregateRootId())
         );

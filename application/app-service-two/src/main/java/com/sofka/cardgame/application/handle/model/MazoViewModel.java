@@ -7,9 +7,11 @@ public class MazoViewModel {
 
     private Integer cantidad;
     private Set<Carta> cartas;
+    private String juegoId;
+    private String jugadorId;
 
-    public void setCartas(Set<Carta> cartas) {
-        this.cartas = cartas;
+    public Integer getCantidad() {
+        return cantidad;
     }
 
     public void setCantidad(Integer cantidad) {
@@ -20,16 +22,32 @@ public class MazoViewModel {
         return cartas;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public void setCartas(Set<Carta> cartas) {
+        this.cartas = cartas;
+    }
+
+    public String getJuegoId() {
+        return juegoId;
+    }
+
+    public void setJuegoId(String juegoId) {
+        this.juegoId = juegoId;
+    }
+
+    public String getJugadorId() {
+        return jugadorId;
+    }
+
+    public void setJugadorId(String jugadorId) {
+        this.jugadorId = jugadorId;
     }
 
     public static class Carta {
         private  String cartaId;
-        private  String jugadorId;
         private  Boolean estaOculta;
         private  Boolean estaHabilitada;
         private  Integer poder;
+        private String uri;
 
         public String getCartaId() {
             return cartaId;
@@ -51,24 +69,36 @@ public class MazoViewModel {
             return estaHabilitada;
         }
 
-        public void setPoder(Integer poder) {
-            this.poder = poder;
+        public void setEstaHabilitada(Boolean estaHabilitada) {
+            this.estaHabilitada = estaHabilitada;
         }
 
         public Integer getPoder() {
             return poder;
         }
 
-        public void setEstaHabilitada(Boolean estaHabilitada) {
+        public void setPoder(Integer poder) {
+            this.poder = poder;
+        }
+
+        public String getUri() {
+            return uri;
+        }
+
+        public void setUri(String uri) {
+            this.uri = uri;
+        }
+
+        public Carta(String cartaId, Boolean estaOculta, Boolean estaHabilitada, Integer poder,
+                     String url) {
+            this.cartaId = cartaId;
+            this.estaOculta = estaOculta;
             this.estaHabilitada = estaHabilitada;
+            this.poder = poder;
+            this.uri = uri;
         }
 
-        public String getJugadorId() {
-            return jugadorId;
-        }
-
-        public void setJugadorId(String jugadorId) {
-            this.jugadorId = jugadorId;
+        public Carta() {
         }
 
         @Override
@@ -83,5 +113,6 @@ public class MazoViewModel {
         public int hashCode() {
             return Objects.hash(cartaId);
         }
+
     }
 }

@@ -12,6 +12,8 @@ public class JuegoListViewModel {
     private Map<String, Jugador> jugadores;
     private Jugador ganador;
 
+
+
     public void setGanador(Jugador ganador) {
         this.ganador = ganador;
     }
@@ -67,6 +69,7 @@ public class JuegoListViewModel {
     public String getUid() {
         return uid;
     }
+
 
     public static class Jugador {
         private String alias;
