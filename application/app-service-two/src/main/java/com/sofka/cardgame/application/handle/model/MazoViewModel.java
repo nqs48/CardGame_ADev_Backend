@@ -31,6 +31,8 @@ public class MazoViewModel {
         private  Boolean estaHabilitada;
         private  Integer poder;
 
+        private String url;
+
         public String getCartaId() {
             return cartaId;
         }
@@ -51,16 +53,16 @@ public class MazoViewModel {
             return estaHabilitada;
         }
 
+        public void setEstaHabilitada(Boolean estaHabilitada) {
+            this.estaHabilitada = estaHabilitada;
+        }
+
         public void setPoder(Integer poder) {
             this.poder = poder;
         }
 
         public Integer getPoder() {
             return poder;
-        }
-
-        public void setEstaHabilitada(Boolean estaHabilitada) {
-            this.estaHabilitada = estaHabilitada;
         }
 
         public String getJugadorId() {
@@ -71,11 +73,19 @@ public class MazoViewModel {
             this.jugadorId = jugadorId;
         }
 
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Carta carta = (Carta) o;
+        public boolean equals(Object object) {
+            if (this == object) return true;
+            if (object == null || getClass() != object.getClass()) return false;
+            Carta carta = (Carta) object;
             return Objects.equals(cartaId, carta.cartaId);
         }
 

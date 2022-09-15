@@ -12,6 +12,8 @@ public class JuegoListViewModel {
     private Map<String, Jugador> jugadores;
     private Jugador ganador;
 
+
+    //Setters and Getters
     public void setGanador(Jugador ganador) {
         this.ganador = ganador;
     }

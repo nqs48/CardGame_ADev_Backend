@@ -43,20 +43,20 @@ public class QueryHandle {
     @Bean
     public RouterFunction<ServerResponse> listarJuegos() {
         return RouterFunctions.route(
-                GET("/juego/listar"),
-                request -> template.findAll(JuegoListViewModel.class, "gameview")
+                GET("/juegos/listar"),
+                serverRequest -> template.findAll(JuegoListViewModel.class,"gameview")
                         .collectList()
-                        .flatMap(list -> ServerResponse.ok()
+                        .flatMap(games->ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .body(BodyInserters.fromPublisher(Flux.fromIterable(list), JuegoListViewModel.class)))
-        );
+                                .body(BodyInserters.fromPublisher(Flux.fromIterable(games),JuegoListViewModel.class))));
+
     }
 
     @Bean
     public RouterFunction<ServerResponse> getTablero() {
         return RouterFunctions.route(
                 GET("/juego/{id}"),
-                request -> template.findOne(filterById(request.pathVariable("id")), TableroViewModel.class, "boardview")
+                request -> template.findOne(filterById(request.pathVariable("id")), TableroViewModel.class, "gameview")
                         .flatMap(element -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .body(BodyInserters.fromPublisher(Mono.just(element), TableroViewModel.class)))
@@ -75,10 +75,27 @@ public class QueryHandle {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> getMazo() {
+        return RouterFunctions.route(
+                GET("/juego/mazo/{uid}/{juegoId}"),
+                request -> template.findOne(filterByUidAndId(request.pathVariable("uid"), request.pathVariable("juegoId")), MazoViewModel.class, "mazoview")
+                        .flatMap(element -> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(BodyInserters.fromPublisher(Mono.just(element), MazoViewModel.class)))
+        );
+    }
+
+
+//    private Query filterByUId(String uid) {
+//        return new Query(
+//                Criteria.where("jugadores."+uid+".jugadorId").is(uid)
+//        );
+//    }
 
     private Query filterByUId(String uid) {
         return new Query(
-                Criteria.where("jugadores."+uid+".jugadorId").is(uid)
+                Criteria.where("uid").is(uid)
         );
     }
 
@@ -88,9 +105,9 @@ public class QueryHandle {
         );
     }
 
-    private Query filterByFinalizado(boolean finalizado) {
+    private Query filterByUidAndId(String uid, String juegoId) {
         return new Query(
-                Criteria.where("finalizado").is(finalizado)
+                Criteria.where("juegoId").is(juegoId).and("uid").is(uid)
         );
     }
 
