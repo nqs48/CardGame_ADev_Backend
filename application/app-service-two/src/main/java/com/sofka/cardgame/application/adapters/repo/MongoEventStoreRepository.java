@@ -32,7 +32,6 @@ public class MongoEventStoreRepository implements EventStoreRepository {
                 .map(storeEvent -> storeEvent.getStoredEvent().deserializeEvent(eventSerializer));
     }
 
-
     @Override
     public Mono<Void> saveEvent(String aggregateName, String aggregateRootId, StoredEvent storedEvent) {
         var eventStored = new DocumentEventStored();

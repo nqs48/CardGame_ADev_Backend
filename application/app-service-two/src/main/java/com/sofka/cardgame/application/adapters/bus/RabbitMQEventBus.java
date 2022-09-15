@@ -31,7 +31,7 @@ public class RabbitMQEventBus implements EventBus {
         rabbitTemplate.convertAndSend(
                 ApplicationConfig.EXCHANGE, event.type, notification.serialize().getBytes()
         );
-        //applicationEventPublisher.publishEvent(event);
+
     }
 
     @Override
