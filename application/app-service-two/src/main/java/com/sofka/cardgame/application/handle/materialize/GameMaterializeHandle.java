@@ -1,8 +1,9 @@
 package com.sofka.cardgame.application.handle.materialize;
 
 import co.com.sofka.domain.generic.DomainEvent;
-import com.sofka.cardgame.events.JuegoCreado;
-import com.sofka.cardgame.events.JugadorAgregado;
+import co.com.sofka.domain.generic.Identity;
+import com.sofka.cardgame.events.*;
+import org.bson.Document;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 
 @Configuration
@@ -42,11 +44,64 @@ public class GameMaterializeHandle {
     public void handleJugadorAgregado(JugadorAgregado event) {
         var data = new Update();
         data.set("fecha", Instant.now());
-        data.set("jugadores."+event.getIdentity() .value()+".alias", event.getAlias());
-        data.set("jugadores."+event.getIdentity().value()+".jugadorId", event.getIdentity().value());
+        data.set("jugadores."+event.getJugadorId().value()+".alias", event.getAlias());
+        data.set("jugadores."+event.getJugadorId().value()+".jugadorId", event.getJugadorId().value());
         data.inc("cantidadJugadores");
         template.updateFirst(getFilterByAggregateId(event), data, COLLECTION_VIEW).block();
     }
+
+    @EventListener
+    public void handleTableroCreado(TableroCreado event) {
+        var data = new Update();
+        var jugadores = event.getJugadorIds().stream()
+                .map(Identity::value)
+                .collect(Collectors.toList());
+
+        data.set("fecha", Instant.now());
+        data.set("tablero.id", event.getTableroId().value());
+        data.set("tablero.cartas", new HashMap<>());
+        data.set("tablero.jugadores", jugadores);
+        data.set("tablero.habilitado", false);
+        data.set("iniciado", true);
+        template.updateFirst(getFilterByAggregateId(event),data, COLLECTION_VIEW)
+                .block();
+    }
+
+    @EventListener
+    public void handleCartaPuestaEnTablero(CartaPuestaEnTablero event) {
+        var data = new Update();
+        var document = new Document();
+        var carta = event.getCarta().value();
+        var jugadorId = event.getJugadorId().value();
+        document.put("cartaId", carta.cartaId().value());
+        document.put("estaOculta", carta.estaOculta());
+        document.put("poder", carta.poder());
+        document.put("estaHabilitada", carta.estaHabilitada());
+        document.put("jugadorId", jugadorId);
+
+        data.set("fecha", Instant.now());
+        data.push("tablero.cartas."+jugadorId, document);
+        template.updateFirst(getFilterByAggregateId(event),data, COLLECTION_VIEW).block();
+    }
+
+    @EventListener
+    public void handleRondaCreada(RondaCreada event) {
+        var data = new Update();
+        var ronda = event.getRonda().value();
+        var document = new Document();
+        var jugadores = ronda.jugadores().stream()
+                .map(Identity::value)
+                .collect(Collectors.toList());
+
+        document.put("jugadores", jugadores);
+        document.put("numero", ronda.numeroRonda());
+
+        data.set("fecha", Instant.now());
+        data.set("tiempo", event.getTiempo());
+        data.set("ronda", document);
+        template.updateFirst(getFilterByAggregateId(event),data, COLLECTION_VIEW).block();
+    }
+
 
     private Query getFilterByAggregateId(DomainEvent event) {
         return new Query(
