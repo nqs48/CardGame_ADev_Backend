@@ -13,13 +13,13 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
+public class CrearJuegoUseCase implements Function<Mono<CrearJuegoCommand>, Flux<DomainEvent>>{
 
     private final ListaDeCartaService listaDeCartaService;
 
-    private final Integer limitCards = 5;
 
     public CrearJuegoUseCase(ListaDeCartaService listaDeCartaService) {
         this.listaDeCartaService = listaDeCartaService;

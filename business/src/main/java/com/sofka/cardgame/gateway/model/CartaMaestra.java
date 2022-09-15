@@ -6,9 +6,6 @@ public class CartaMaestra {
     private String uri;
     private Integer poder;
 
-    public CartaMaestra() {
-    }
-
     public CartaMaestra(String idCartaMaestra, String nombreCarta) {
         this.id = idCartaMaestra;
         this.nombre = nombreCarta;

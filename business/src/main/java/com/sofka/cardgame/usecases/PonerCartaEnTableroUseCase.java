@@ -17,16 +17,14 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
 
     private final JuegoDomainEventRepository repository;
 
-    private final Integer cartLimitTurn=1;
-
     public PonerCartaEnTableroUseCase(JuegoDomainEventRepository repository) {
         this.repository = repository;
     }
 
 
     @Override
-    public Flux<DomainEvent> apply(Mono<PonerCartaEnTableroCommand> ponerCartaEnTablero) {
-        return ponerCartaEnTablero.flatMapMany((command) -> repository
+    public Flux<DomainEvent> apply(Mono<PonerCartaEnTableroCommand> ponerCartaEnTableroCommand) {
+        return ponerCartaEnTableroCommand.flatMapMany((command) -> repository
                 .obtenerEventosPor(command.getJuegoId())
                 .collectList()
                 .flatMapIterable(events -> {
@@ -38,8 +36,8 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
 
                     var cantidad = (long) juego.tablero().partida()
                             .get(jugadorId).size();
-                    if(cantidad > cartLimitTurn) {
-                        throw new IllegalArgumentException("En tu turno solo puedes poner una carta en el tablero");
+                    if(cantidad >= 5) {
+                        throw new IllegalArgumentException("No puede poner mas de 2 cartas en el tablero");
                     }
                     juego.ponerCartaEnTablero(tableroId, jugadorId, cartaSeleccionado);
                     return juego.getUncommittedChanges();

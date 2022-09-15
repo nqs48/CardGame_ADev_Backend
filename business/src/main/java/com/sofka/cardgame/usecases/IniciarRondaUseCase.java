@@ -18,9 +18,8 @@ public class IniciarRondaUseCase extends UseCaseForCommand<IniciarRondaCommand> 
     }
 
     @Override
-    public Flux<DomainEvent> apply(Mono<IniciarRondaCommand> iniciarRondaCommandMono) {
-
-        return iniciarRondaCommandMono.flatMapMany(comando -> repository
+    public Flux<DomainEvent> apply(Mono<IniciarRondaCommand> iniciarRondaCommand) {
+        return iniciarRondaCommand.flatMapMany(comando -> repository
                 .obtenerEventosPor(comando.getJuegoId())
                 .collectList()
                 .flatMapIterable(evento -> {
