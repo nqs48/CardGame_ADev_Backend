@@ -10,12 +10,12 @@ public class RondaTerminada extends DomainEvent {
 
     private final TableroId tableroId;
 
-    private final Set<JugadorId> jugadoresId;
+    private final Set<JugadorId> jugadorIds;
 
-    public RondaTerminada(TableroId tableroId, Set<JugadorId> jugadoresId) {
+    public RondaTerminada(TableroId tableroId, Set<JugadorId> jugadorIds) {
         super("cardgame.rondaterminada");
         this.tableroId= tableroId;
-        this.jugadoresId=jugadoresId;
+        this.jugadorIds=jugadorIds;
     }
 
     public TableroId getTableroId() {
@@ -23,6 +23,6 @@ public class RondaTerminada extends DomainEvent {
     }
 
     public Set<JugadorId> getJugadorIds() {
-        return this.jugadoresId;
+        return this.jugadorIds;
     }
 }

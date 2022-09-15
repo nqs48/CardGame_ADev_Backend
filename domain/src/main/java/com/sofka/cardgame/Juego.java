@@ -99,20 +99,4 @@ public class Juego extends AggregateEvent<JuegoId> {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

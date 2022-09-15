@@ -26,11 +26,14 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
     }
 
     @Override
-    public Flux<DomainEvent> apply(Mono<CrearJuegoCommand> input){
+    public Flux<DomainEvent> apply(Mono<CrearJuegoCommand> input) {
         return listaDeCartaService.obtenerCartasDeMarvel().collectList()
                 .flatMapMany(cartas -> input.flatMapIterable(command -> {
 
-                    //TODO: validaciones del comando
+                    if (command.getJugadores().size() < 2){
+                        throw new IllegalArgumentException("Para jugar deben haber minimo dos jugadores");
+                    }
+
                     var factory = new JugadorFactory();
                     command.getJugadores()
                             .forEach((id, alias) ->
@@ -43,12 +46,16 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
                     );
                     return juego.getUncommittedChanges();
                 }));
+
     }
+
+
+
 
     private Mazo generarMazo(List<CartaMaestra> cartas) {
         Collections.shuffle(cartas);
-        var lista = cartas.stream().limit(limitCards)
-                .map(carta -> new Carta(CartaMaestraId.of(carta.getId()), carta.getPoder(), false, true))
+        var lista = cartas.stream().limit(5)
+                .map(carta -> new Carta(CartaMaestraId.of(carta.getId()), carta.getPoder(), false, true, carta.getUri()))
                 .collect(Collectors.toList());
         cartas.removeIf(cartaMaestra -> lista.stream().anyMatch(carta -> {
             var id = carta.value().cartaId().value();

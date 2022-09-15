@@ -14,6 +14,7 @@ public class CrearRondaCommand extends Command {
     public CrearRondaCommand(String juegoId, Set<String> jugadores) {
         this.juegoId = juegoId;
         this.jugadores = jugadores;
+//      this.tiempo = tiempo;
     }
 
     //Getters y Setters

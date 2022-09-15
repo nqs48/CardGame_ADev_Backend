@@ -10,7 +10,7 @@ public class Ronda implements ValueObject<Ronda.Props> {
     private final Integer numeroRonda;
     private final Boolean estaIniciada;
 
-    public Ronda(Set<JugadorId> jugadores, Integer numeroRonda) {
+    public Ronda( Integer numeroRonda, Set<JugadorId> jugadores) {
         this.jugadores = jugadores;
         this.numeroRonda = numeroRonda;
         this.estaIniciada = false;
@@ -22,7 +22,7 @@ public class Ronda implements ValueObject<Ronda.Props> {
         }
     }
 
-    public Ronda(Set<JugadorId> jugadores, Integer numeroRonda, Boolean estaIniciada) {
+    public Ronda(Integer numeroRonda, Set<JugadorId> jugadores,  Boolean estaIniciada) {
         this.jugadores = jugadores;
         this.numeroRonda = numeroRonda;
         this.estaIniciada = estaIniciada;
@@ -30,16 +30,16 @@ public class Ronda implements ValueObject<Ronda.Props> {
 
     //Comportamientos de la ronda
     public Ronda iniciarRonda(){
-        return new Ronda(this.jugadores, this.numeroRonda, true);
+        return new Ronda(this.numeroRonda, this.jugadores,true);
     }
 
     public Ronda terminarRonda(){
-        return new Ronda(this.jugadores, this.numeroRonda, false);
+        return new Ronda(this.numeroRonda, this.jugadores,false);
     }
 
     public Ronda incrementarRonda(Set<JugadorId> jugadores){
         System.out.println("Se inicia nueva ronda");
-        return new Ronda(jugadores,this.numeroRonda + 1,  false);
+        return new Ronda(this.numeroRonda + 1, jugadores, false);
     }
 
     @Override

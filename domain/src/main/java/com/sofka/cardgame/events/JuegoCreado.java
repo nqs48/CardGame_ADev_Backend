@@ -6,9 +6,10 @@ import com.sofka.cardgame.values.JugadorId;
 public class JuegoCreado extends DomainEvent {
 
     private final JugadorId jugadorPrincipalId;
-    public JuegoCreado(JugadorId jugadorId) {
+
+    public JuegoCreado(JugadorId jugadorPrincipalId) {
         super("cardgame.juegocreado");
-        this.jugadorPrincipalId=jugadorId;
+        this.jugadorPrincipalId=jugadorPrincipalId;
     }
 
     public JugadorId getJugadorPrincipalId() {

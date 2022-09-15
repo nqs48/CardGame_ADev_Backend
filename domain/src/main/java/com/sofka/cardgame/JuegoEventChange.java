@@ -17,7 +17,7 @@ public class JuegoEventChange extends EventChange {
         });
 
         apply((JugadorAgregado event) -> {
-            juego.jugadores.put(event.getIdentity(), new Jugador(event.getIdentity(), event.getAlias(), event.getMazo()));
+            juego.jugadores.put(event.getJugadorId(), new Jugador(event.getJugadorId(), event.getAlias(), event.getMazo()));
         });
 
         apply((RondaCreada event) -> {
@@ -29,7 +29,7 @@ public class JuegoEventChange extends EventChange {
         });
 
         apply((TableroCreado event) -> {
-            juego.tablero= new Tablero(event.getTableroId(), event.getJugadoresId());
+            juego.tablero= new Tablero(event.getTableroId(), event.getJugadorIds());
         });
 
         apply((TiempoActualizadoDeTablero event)->{
@@ -53,7 +53,7 @@ public class JuegoEventChange extends EventChange {
 
         apply((RondaIniciada event) -> {
             if(Objects.isNull(juego.ronda)){
-                throw new IllegalArgumentException("Debe existir una runda creada");
+                throw new IllegalArgumentException("Debe existir una ronda creada");
             }
             juego.ronda = juego.ronda.iniciarRonda();
             juego.tablero.habilitarApuesta();
@@ -72,8 +72,6 @@ public class JuegoEventChange extends EventChange {
         apply((JuegoFinalizado event) ->{
             juego.ganador= juego.jugadores.get(event.getJugadorId());
         });
-
-
 
     }
 }

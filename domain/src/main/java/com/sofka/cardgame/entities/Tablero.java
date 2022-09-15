@@ -12,25 +12,25 @@ import java.util.Set;
 
 public class Tablero extends Entity<TableroId> {
 
-    private Integer tiempo;
+    private Integer tiempoEnSegundos;
     private Boolean estaHabilitado;
     private final Map<JugadorId, Set<Carta>> partida;
 
 
-    public Tablero(TableroId tableroId, Set<JugadorId> jugadoresId) {
+    public Tablero(TableroId tableroId, Set<JugadorId> jugadorIds) {
         super(tableroId);
-        this.estaHabilitado = false;
         this.partida = new HashMap<>();
-        jugadoresId.forEach(jugadorId -> partida.put(jugadorId, new HashSet<>()));
+        this.estaHabilitado = false;
+        jugadorIds.forEach(jugadorId -> partida.put(jugadorId, new HashSet<>()));
     }
 
     public Integer tiempo() {
-        return this.tiempo;
+        return tiempoEnSegundos;
     }
 
     //Comportamientos
     public void ajustarTiempo(Integer tiempo){
-        this.tiempo = tiempo;
+        this.tiempoEnSegundos = tiempo;
     }
 
     public void adicionarPartida(JugadorId jugadorId, Carta carta){
