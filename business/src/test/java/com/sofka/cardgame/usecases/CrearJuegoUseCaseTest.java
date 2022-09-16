@@ -29,64 +29,47 @@ class CrearJuegoUseCaseTest {
     @InjectMocks
     private CrearJuegoUseCase useCase;
     @Test
-    void crearJuego() {
+    void crearJuegoHappyPass() {
         var command = new CrearJuegoCommand();
-        command.setJuegoId("XXXX");
+        command.setJuegoId("Juego-001");
         command.setJugadores(new HashMap<>());
-        command.getJugadores().put("FFFF", "Pablo");
-        command.getJugadores().put("GGGG", "Pedro");
-        command.getJugadores().put("HHHH", "Elias");
-        command.setJugadorPrincipalId("FFFF");
+        command.getJugadores().put("01", "Nestea");
+        command.getJugadores().put("GGGG", "NesteaTwo");
+        command.setJugadorPrincipalId("01");
 
-        when(service.obtenerCartasDeMarvel()).thenReturn(CartasSet());
+        when(service.obtenerCartasDeMarvel()).thenReturn(mazo());
 
         StepVerifier.create(useCase.apply(Mono.just(command)))
                 .expectNextMatches(domainEvent -> {
                     var event = (JuegoCreado) domainEvent;
-                    return event.getJugadorPrincipalId().value().equals("FFFF") && event.aggregateRootId().equals("XXXX");
+                    return event.getJugadorPrincipalId().value().equals("01") && event.aggregateRootId().equals("Juego-001");
                 })
                 .expectNextMatches(domainEvent -> {
                     var event = (JugadorAgregado) domainEvent;
-                    assert event.getMazo().value().cantidad().equals(6);
-                    return event.getJugadorId().value().equals("FFFF") && event.getAlias().equals("Pablo");
+                    assert event.getMazo().value().cantidad().equals(5);
+                    return event.getJugadorId().value().equals("01") && event.getAlias().equals("Nestea");
                 })
                 .expectNextMatches(domainEvent -> {
                     var event = (JugadorAgregado) domainEvent;
-                    assert event.getMazo().value().cantidad().equals(6);
-                    return event.getJugadorId().value().equals("GGGG") && event.getAlias().equals("Pedro");
-                })
-                .expectNextMatches(domainEvent -> {
-                    var event = (JugadorAgregado) domainEvent;
-                    assert event.getMazo().value().cantidad().equals(6);
-                    return event.getJugadorId().value().equals("HHHH") && event.getAlias().equals("Elias");
+                    assert event.getMazo().value().cantidad().equals(5);
+                    return event.getJugadorId().value().equals("GGGG") && event.getAlias().equals("NesteaTwo");
                 })
                 .expectComplete()
                 .verify();
     }
 
-    private Flux<CartaMaestra> CartasSet(){
+    private Flux<CartaMaestra> mazo(){
         return Flux.just(
-
-                new CartaMaestra("1", "aa"),
-                new CartaMaestra("2", "ab"),
-                new CartaMaestra("3", "ac"),
-                new CartaMaestra("4", "ad"),
-                new CartaMaestra("5", "ae"),
-                new CartaMaestra("6", "af"),
-
-                new CartaMaestra("7", "ag"),
-                new CartaMaestra("8", "ah"),
-                new CartaMaestra("9", "ai"),
-                new CartaMaestra("10", "aj"),
-                new CartaMaestra("11", "ak"),
-                new CartaMaestra("12", "al"),
-
-                new CartaMaestra("13", "am"),
-                new CartaMaestra("14", "an"),
-                new CartaMaestra("15", "ao"),
-                new CartaMaestra("16", "ap"),
-                new CartaMaestra("17", "aq"),
-                new CartaMaestra("18", "ar")
+                new CartaMaestra("Master-001", "name-001"),
+                new CartaMaestra("Master-002", "name-002"),
+                new CartaMaestra("Master-003", "name-003"),
+                new CartaMaestra("Master-004", "name-004"),
+                new CartaMaestra("Master-005", "name-005"),
+                new CartaMaestra("Master-006", "name-006"),
+                new CartaMaestra("Master-007", "name-007"),
+                new CartaMaestra("Master-008", "name-008"),
+                new CartaMaestra("Master-009", "name-009"),
+                new CartaMaestra("Master-0010", "name-010")
 
         );
     }
