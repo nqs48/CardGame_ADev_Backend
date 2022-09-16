@@ -30,44 +30,65 @@ class PonerCartaEnTableroUseCaseTest {
     private PonerCartaEnTableroUseCase useCase;
 
     @Test
-    void ponerCarta() {
+    void ponerCartaHappyPass(){
+
         //arrange
         var command = new PonerCartaEnTableroCommand();
-        command.setCartaId("cartaMaestraId-001");
-        command.setJuegoId("juegoId-001");
-        command.setJugadorId("jugadorId-001");
-        when(repository.obtenerEventosPor("juegoId-001")).thenReturn(history());
+        command.setJuegoId("Juego-001");
+        command.setJugadorId("Jugador-001");
+        command.setCartaId("card-001");
 
-        StepVerifier.create(useCase.apply(Mono.just(command)))//act
+        when(repository.obtenerEventosPor("Juego-001")).thenReturn(history());
+
+        //act & assert
+        StepVerifier.create(useCase.apply(Mono.just(command)))
                 .expectNextMatches(domainEvent -> {
                     var event = (CartaPuestaEnTablero) domainEvent;
-                    Assertions.assertEquals("jugadorId-001", event.getJugadorId().value());
-                    return "cartaMaestraId-001".equals(event.getCarta().value().cartaId().value());
+                    assert event.getTableroId().value().equals("Board-001");
+                    return event.getCarta().value().cartaId().value().equals("card-001");
                 })
                 .expectNextMatches(domainEvent -> {
                     var event = (CartaRetiradaDeMazo) domainEvent;
-                    Assertions.assertEquals("jugadorId-001", event.getJugadorId().value());
-                    return "cartaMaestraId-001".equals(event.getCarta().value().cartaId().value());                    })
+                    assert event.getJugadorId().value().equals("Jugador-001");
+                    return event.getCarta().value().cartaId().value().equals("card-001");
+                })
                 .expectComplete()
                 .verify();
     }
 
     private Flux<DomainEvent> history() {
-        var jugadorId = JugadorId.of("jugadorId-001");
-        var jugador2Id = JugadorId.of("jugadorId-002");
-        var cartas = Set.of(new Carta(
-                CartaMaestraId.of("cartaMaestraId-001"),
-                20,
-                false, true
-        ));
-        var ronda = new Ronda(Set.of(jugadorId, jugador2Id),1);
-        return Flux.just(
-                new JuegoCreado(jugadorId),
-                new JugadorAgregado(jugadorId, "raul", new Mazo(cartas)),
-                new TableroCreado(new TableroId(), Set.of(jugadorId, jugador2Id)),
-                new RondaCreada(ronda, 30),
-                new RondaIniciada()
-        );
+        var evento = new JuegoCreado(JugadorId.of("Jugador-001"));
+
+        var evento1 = new JugadorAgregado(JugadorId.of("Jugador-001"), "Nestea", new Mazo(Set.of(
+                new Carta(CartaMaestraId.of("card-001"), 1, false, true,"www.google.com"),
+                new Carta(CartaMaestraId.of("card-002"), 2, false, true, "www.google.com"),
+                new Carta(CartaMaestraId.of("card-003"), 3, false, true, "www.google.com"),
+                new Carta(CartaMaestraId.of("card-004"), 4, false, true, "www.google.com"),
+                new Carta(CartaMaestraId.of("card-005"), 5, false, true, "www.google.com")
+        )));
+
+        var evento2 = new JugadorAgregado(JugadorId.of("Jugador-002"), "Nestea T", new Mazo(Set.of(
+                new Carta(CartaMaestraId.of("card-006"), 6, false, true, "www.google.com"),
+                new Carta(CartaMaestraId.of("card-007"), 7, false, true, "www.google.com"),
+                new Carta(CartaMaestraId.of("card-008"), 8, false, true,"www.google.com"),
+                new Carta(CartaMaestraId.of("card-009"), 9, false, true,"www.google.com"),
+                new Carta(CartaMaestraId.of("card-0010"), 10, false, true,"www.google.com")
+
+        )));
+
+        var evento3 = new TableroCreado(TableroId.of("Board-001"), Set.of(JugadorId.of("Jugador-001"), JugadorId.of("Jugador-002")));
+        var evento4 = new RondaCreada(new Ronda(1, evento3.getJugadorIds()), 60);
+        var evento5 = new RondaIniciada();
+
+        evento.setAggregateRootId("Juego-001");
+        evento1.setAggregateRootId("Juego-001");
+        evento2.setAggregateRootId("Juego-001");
+        evento3.setAggregateRootId("Juego-001");
+        evento4.setAggregateRootId("Juego-001");
+        evento5.setAggregateRootId("Juego-001");
+
+
+        return Flux.just(evento, evento1, evento2, evento3, evento4, evento5);
     }
 
 }

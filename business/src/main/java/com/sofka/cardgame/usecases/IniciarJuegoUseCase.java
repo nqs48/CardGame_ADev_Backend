@@ -14,7 +14,7 @@ public class IniciarJuegoUseCase extends UseCaseForCommand<IniciarJuegoCommand> 
 
     private final JuegoDomainEventRepository repository;
 
-    public final Integer TIEMPO= 80;
+    public final Integer TIEMPO= 50;
 
     public IniciarJuegoUseCase(JuegoDomainEventRepository repository){
         this.repository = repository;

@@ -24,59 +24,70 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CrearJuegoUseCaseTest {
 
+    @Mock
+    private ListaDeCartaService service;
     @InjectMocks
     private CrearJuegoUseCase useCase;
-
-    @Mock
-    private ListaDeCartaService listaDeCartaService;
-
     @Test
-    void crearJuegoHappyPass() {
+    void crearJuego() {
+        var command = new CrearJuegoCommand();
+        command.setJuegoId("XXXX");
+        command.setJugadores(new HashMap<>());
+        command.getJugadores().put("FFFF", "Pablo");
+        command.getJugadores().put("GGGG", "Pedro");
+        command.getJugadores().put("HHHH", "Elias");
+        command.setJugadorPrincipalId("FFFF");
 
-        //arrange
-        var juegoId = JuegoId.of("J01");
-        var jugadores = new HashMap<String,String>();
-        jugadores.put("j01","Jugador01");
-        jugadores.put("j02","Jugador02");
-        var comando = new CrearJuegoCommand(juegoId.value(),jugadores,"j01");
+        when(service.obtenerCartasDeMarvel()).thenReturn(CartasSet());
 
-        when(listaDeCartaService.obtenerCartasDeMarvel()).thenReturn(cartasJuego());
-
-        StepVerifier.create(useCase.apply(Mono.just(comando)))
-                .expectNextMatches(domainEvent->{
-                    var evento = (JuegoCreado) domainEvent;
-                    return "J01".equals(evento.aggregateRootId())
-                            && "j01".equals(evento.getJugadorPrincipalId().value());
+        StepVerifier.create(useCase.apply(Mono.just(command)))
+                .expectNextMatches(domainEvent -> {
+                    var event = (JuegoCreado) domainEvent;
+                    return event.getJugadorPrincipalId().value().equals("FFFF") && event.aggregateRootId().equals("XXXX");
                 })
-                .expectNextMatches(eventoDominio->{
-                    var evento = (JugadorAgregado) eventoDominio;
-                    return "j01".equals(evento.getIdentity().value())
-                            && "Jugador01".equals(evento.getAlias());
+                .expectNextMatches(domainEvent -> {
+                    var event = (JugadorAgregado) domainEvent;
+                    assert event.getMazo().value().cantidad().equals(6);
+                    return event.getJugadorId().value().equals("FFFF") && event.getAlias().equals("Pablo");
                 })
-                .expectNextMatches(eventoDominio->{
-                    var evento = (JugadorAgregado) eventoDominio;
-                    return "j02".equals(evento.getIdentity().value())
-                            && "Jugador02".equals(evento.getAlias());
+                .expectNextMatches(domainEvent -> {
+                    var event = (JugadorAgregado) domainEvent;
+                    assert event.getMazo().value().cantidad().equals(6);
+                    return event.getJugadorId().value().equals("GGGG") && event.getAlias().equals("Pedro");
+                })
+                .expectNextMatches(domainEvent -> {
+                    var event = (JugadorAgregado) domainEvent;
+                    assert event.getMazo().value().cantidad().equals(6);
+                    return event.getJugadorId().value().equals("HHHH") && event.getAlias().equals("Elias");
                 })
                 .expectComplete()
                 .verify();
-
-
     }
 
-    private Flux<CartaMaestra> cartasJuego() {
-
+    private Flux<CartaMaestra> CartasSet(){
         return Flux.just(
-                new CartaMaestra("C01","Carta 1"),
-                new CartaMaestra("C02","Carta 2"),
-                new CartaMaestra("C03","Carta 3"),
-                new CartaMaestra("C04","Carta 4"),
-                new CartaMaestra("C05","Carta 5"),
-                new CartaMaestra("C06","Carta 6"),
-                new CartaMaestra("C07","Carta 7"),
-                new CartaMaestra("C08","Carta 8"),
-                new CartaMaestra("C09","Carta 9"),
-                new CartaMaestra("C010","Carta 10")
+
+                new CartaMaestra("1", "aa"),
+                new CartaMaestra("2", "ab"),
+                new CartaMaestra("3", "ac"),
+                new CartaMaestra("4", "ad"),
+                new CartaMaestra("5", "ae"),
+                new CartaMaestra("6", "af"),
+
+                new CartaMaestra("7", "ag"),
+                new CartaMaestra("8", "ah"),
+                new CartaMaestra("9", "ai"),
+                new CartaMaestra("10", "aj"),
+                new CartaMaestra("11", "ak"),
+                new CartaMaestra("12", "al"),
+
+                new CartaMaestra("13", "am"),
+                new CartaMaestra("14", "an"),
+                new CartaMaestra("15", "ao"),
+                new CartaMaestra("16", "ap"),
+                new CartaMaestra("17", "aq"),
+                new CartaMaestra("18", "ar")
+
         );
     }
 

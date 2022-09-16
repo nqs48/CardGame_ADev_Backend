@@ -55,7 +55,7 @@ public class QueryHandle {
     @Bean
     public RouterFunction<ServerResponse> getTablero() {
         return RouterFunctions.route(
-                GET("/juego/{id}"),
+                GET("/tablero/{id}"),
                 request -> template.findOne(filterById(request.pathVariable("id")), TableroViewModel.class, "gameview")
                         .flatMap(element -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)

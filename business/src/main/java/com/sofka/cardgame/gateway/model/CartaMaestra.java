@@ -6,9 +6,9 @@ public class CartaMaestra {
     private String uri;
     private Integer poder;
 
-    public CartaMaestra(String idCartaMaestra, String nombreCarta) {
-        this.id = idCartaMaestra;
-        this.nombre = nombreCarta;
+    public CartaMaestra(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
 
@@ -43,5 +43,4 @@ public class CartaMaestra {
     public void setPoder(Integer poder) {
         this.poder = poder;
     }
-
 }
