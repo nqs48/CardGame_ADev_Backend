@@ -20,6 +20,10 @@ public class JuegoEventChange extends EventChange {
             juego.jugadores.put(event.getJugadorId(), new Jugador(event.getJugadorId(), event.getAlias(), event.getMazo()));
         });
 
+        apply((JugadorNuevoAdicionado event) -> {
+            juego.jugadores.put(event.getJugadorId(), new Jugador(event.getJugadorId(), event.getAlias(), event.getMazo()));
+        });
+
         apply((RondaCreada event) -> {
             if(Objects.isNull(juego.tablero)){
                 throw new IllegalArgumentException("Primero debes crear un tablero");

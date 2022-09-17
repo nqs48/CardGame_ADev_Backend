@@ -25,7 +25,7 @@ public class CrearRondaUseCase extends UseCaseForEvent<RondaTerminada> {
         this.repository = repository;
     }
 
-    public Integer TIEMPO= 60;
+    public Integer TIEMPO= 10;
 
     @Override
     public Flux<DomainEvent> apply(Mono<RondaTerminada> rondaTerminada) {

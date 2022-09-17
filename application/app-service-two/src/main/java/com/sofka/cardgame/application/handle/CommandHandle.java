@@ -1,9 +1,6 @@
 package com.sofka.cardgame.application.handle;
 
-import com.sofka.cardgame.commands.CrearJuegoCommand;
-import com.sofka.cardgame.commands.IniciarJuegoCommand;
-import com.sofka.cardgame.commands.IniciarRondaCommand;
-import com.sofka.cardgame.commands.PonerCartaEnTableroCommand;
+import com.sofka.cardgame.commands.*;
 import com.sofka.cardgame.events.RondaTerminada;
 import com.sofka.cardgame.usecases.*;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +33,18 @@ public class CommandHandle {
                 POST("/juego/crear").and(accept(MediaType.APPLICATION_JSON)),
                 request -> usecase.andThen(integrationHandle)
                         .apply(request.bodyToMono(CrearJuegoCommand.class))
+                        .then(ServerResponse.ok().build())
+
+        );
+    }
+    
+    @Bean
+    public RouterFunction<ServerResponse> jugadorAdicional(AgregarJugadorAdicionalUseCase usecase) {
+
+        return route(
+                POST("/juego/agregar").and(accept(MediaType.APPLICATION_JSON)),
+                request -> usecase.andThen(integrationHandle)
+                        .apply(request.bodyToMono(AgregarJugadorAdicionalCommand.class))
                         .then(ServerResponse.ok().build())
 
         );

@@ -69,6 +69,10 @@ public class Juego extends AggregateEvent<JuegoId> {
         appendChange(new RondaCreada(ronda, tiempo)).apply();
     }
 
+    public void agregarJugadorAdicional(JugadorId jugadorId, String alias, Mazo mazo){
+        appendChange(new JugadorNuevoAdicionado(jugadorId,alias, mazo)).apply();
+    }
+
     public void actualizarTiempoDeTablero(TableroId tableroId, Integer tiempo){
         appendChange(new TiempoActualizadoDeTablero(tableroId, tiempo)).apply();
     }
